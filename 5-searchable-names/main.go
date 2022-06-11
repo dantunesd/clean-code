@@ -12,7 +12,6 @@ var a = 20
 
 // Bad: The same goes for "g". Imagine this function being used in many places, and you have to find it or change its name
 func g(n int) int {
-
 	// Bad: The same goes for "n".
 	if n == 0 {
 		return 0
@@ -26,7 +25,6 @@ var averageMonthlyWorkingDays = 20
 
 // Good: Significant, pronounceable and easy to find all occurrences
 func getAverageTasksDeliveredPerDay(tasks int) int {
-
 	// Good: Significant, pronounceable and easy to find all occurrences
 	if tasks == 0 {
 		return 0
