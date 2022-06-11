@@ -10,7 +10,7 @@ func main() {
 	// Bad: It's not an "array"
 	var carArray []Car
 
-	// Good: But "list" can canfuse yet
+	// Good: But "list" may confuse yet
 	var listOfcars []Car
 
 	// better: Type doesn't matter at all
