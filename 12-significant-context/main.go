@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	// After you see these 3 variables, you may notice that them is part of a bigger context, like "Adress".
+	// After you see these 3 variables, you may notice that them is part of a bigger context, like "Address".
 	// Now imagine if they were all spread out. It would be more difficult to get this context
 	var number int
 	var state string
