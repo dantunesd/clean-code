@@ -11,5 +11,6 @@ type Address struct {
 	State  string
 }
 
-// The same rule could be applied to modules, class names, folder names, etc. We are already in a folder named 'avoid-unnecessary-context' folder.
+// The same rule could be applied to modules, class names, folder names, etc.
+// Ex: We are already in a folder named 'avoid-unnecessary-context'.
 type AvoidUnnecessaryContextAddress struct{}
