@@ -5,7 +5,7 @@ type Product struct{}
 // Good: It represents a Product
 var product Product
 
-// Bad: What is the different between product and product2?
+// Bad: What is the difference between product and product2?
 var product2 Product
 
 // Bad: What info? Vague word
