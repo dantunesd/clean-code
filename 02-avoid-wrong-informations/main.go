@@ -1,20 +1,14 @@
 package main
 
-import "fmt"
-
 type Car struct {
 	Name string
 }
 
-func main() {
-	// Bad: It's not an "array"
-	var carArray []Car
+// Bad: It's not an "array"
+var CarArray []Car
 
-	// Good: But "list" may confuse yet
-	var listOfcars []Car
+// Good: But "list" may cause confusion yet
+var ListOfcars []Car
 
-	// better: Type doesn't matter at all
-	var cars []Car
-
-	fmt.Println(carArray, listOfcars, cars)
-}
+// Better: The type doesn't matter at all
+var Cars []Car

@@ -2,12 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
-	useConventions()
-	useUbiquitousLanguage()
-}
-
-func useConventions() {
+func UseConventions() {
 	// Bad: It's a "convention" to use one letter in "for" statements to represent "index" (i) or "value" (v). But "ç" is definitely not common.
 	for ç := 0; ç < 2; ç++ {
 		fmt.Println(ç)
@@ -19,7 +14,7 @@ func useConventions() {
 	}
 }
 
-func useUbiquitousLanguage() {
+func UseUbiquitousLanguage() {
 	// An example of a domain object
 	type Vehicle struct {
 		Type           string

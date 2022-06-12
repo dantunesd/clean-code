@@ -1,24 +1,21 @@
 package main
 
-import "fmt"
-
 type Product struct{}
 
-func main() {
-	// Good: it represents a Product
-	var product Product
+// Good: It represents a Product
+var product Product
 
-	// Bad: What info? Vague word
-	var productInfo Product
+// Bad: What is the different between product and product2?
+var product2 Product
 
-	// Bad: What is the difference between Data and Info? and with product? Vague word
-	var productData Product
+// Bad: What info? Vague word
+var productInfo Product
 
-	// Bad: Yes, it's a variable
-	var varProduct Product
+// Bad: What is the difference between Data and Info? and with product? Vague word
+var productData Product
 
-	// Bad: Yes, it's a variable and a struct
-	var productStruct Product
+// Bad: Yes, it's a variable
+var varProduct Product
 
-	fmt.Println(product, productInfo, productData, varProduct, productStruct)
-}
+// Bad: Yes, it's a variable and a struct
+var productStruct Product
