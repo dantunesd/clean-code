@@ -17,12 +17,12 @@ func (c *Customer) GetName() string {
 	return c.Name
 }
 
-// The method name could be GetName (Or all the other could be Retrieve...)
+// The method name could be GetName (Or all the others could be Retrieve...)
 func (c *Car) RetrieveName() string {
 	return c.Name
 }
 
-// The method name could be GetName (Or all the other could be Fetch...)
+// The method name could be GetName (Or all the others could be Fetch...)
 func (a *Animal) FetchName() string {
 	return a.Name
 }
