@@ -6,7 +6,7 @@ import (
 )
 
 /**
- * Good functions is generally small and broken into many smaller functions. But also it must have a good reading flow. Like we were reading a book.
+ * Good functions are generally small and broken into many smaller functions. But also it must have a good reading flow. Like if we were reading a book.
  * Decrescent reading rule is a practice to put functions right below where it's been called
  *
  * The first thing we need to do:
