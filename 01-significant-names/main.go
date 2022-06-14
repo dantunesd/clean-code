@@ -18,7 +18,7 @@ func Sq(s []int) int {
 func SumSquare(numbers []int) int {
 	var totalSum int
 
-	// it's easier to comprehend now that we are doing a square sum operation with the given numbers
+	// it's easier now to comprehend that it's doing a square sum operation with the given numbers
 	for _, number := range numbers {
 		totalSum += number * number
 	}
@@ -33,7 +33,7 @@ func Get(a, b int) int {
 	return r
 }
 
-// Good: A function that multiplies the firstNumber with the secondNumber and returns their result
+// Good: A function that multiplies the firstNumber and secondNumber and returns the result
 func Multiply(firstNumber, secondNumber int) int {
 	result := firstNumber * secondNumber
 	return result
