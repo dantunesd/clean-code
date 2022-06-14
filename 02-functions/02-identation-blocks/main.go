@@ -6,11 +6,13 @@ import (
 )
 
 /**
+ * To have good functions, in addition to being small, they must have few identations level. At most 2 levels.
+ * The less "if" inside "if", "for" inside another "for", the simpler your code will looks like
+ *
  * The first thing we need to do:
  * Decrease the identation level.
- * The less the better.
  * But how do we do this?
- * Extract ifs, fors, etc inside another if, for, etc to a new function
+ * Extract "if", "for", etc, from others "if", "for" and put them into a new function
 **/
 
 // This function is easy to understand because it has only one identation level (one "if")
@@ -24,17 +26,17 @@ func IsValidIp(ip string) bool {
 	return hasValidValues(values)
 }
 
-// This function has the best readability possible, it doesn't have any statement like "if" (yes, it's a simplified if), "for", "while", "switch", etc.
+// This function has the best identation level possible, it doesn't have any statement like "if" (yes, it's a simplified if), "for", "while", "switch", etc.
 func hasValidRange(number int) bool {
 	return number >= 0 && number <= 255
 }
 
 /**
- * Previously this function had a difficult readability.
+ * Previously this function had a difficult readability beucase its identation level.
  * It had two identation levels, a confused logic, and so on...
- * To improve it, we apply the identation block rule. Minimize the identation level
- * Also we've implemented the return early approach using the hasValidStart method
- * Now this function has only one identation level
+ * To improve it, we've extracted some code to minimize the identation level.
+ * Also we've implemented the return early approach.
+ * Now this function has only one identation level.
 **/
 func hasValidValue(value string) bool {
 	if !hasValidStart(value) {

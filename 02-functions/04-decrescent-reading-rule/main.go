@@ -5,16 +5,22 @@ import (
 	"strings"
 )
 
+/**
+ * Good functions is generally small and broken into many smaller functions. But also it must have a good reading flow. Like we were reading a book.
+ * Decrescent reading rule is a practice to put functions right below where it's been called
+ *
+ * The first thing we need to do:
+ * If you are calling a function, place that function declaration right below.
+**/
+
+/**
+ * This function calls splitIp, isAnOctet and hasValidValues functions.
+ * Note that they are now right bellow this function, simplifying the navigation and readbility.
+ *
+**/
 func IsValidIp(ip string) bool {
 	values := splitIp(ip)
-	return validateValues(values)
-}
 
-func splitIp(ip string) []string {
-	return strings.Split(ip, ".")
-}
-
-func validateValues(values []string) bool {
 	if !isAnOctet(values) {
 		return false
 	}
@@ -22,10 +28,15 @@ func validateValues(values []string) bool {
 	return hasValidValues(values)
 }
 
+func splitIp(ip string) []string {
+	return strings.Split(ip, ".")
+}
+
 func isAnOctet(values []string) bool {
 	return len(values) == 4
 }
 
+// The same rule was applied here. this function calls hasValidValue and it is right below this one.
 func hasValidValues(values []string) bool {
 	for _, value := range values {
 		if !hasValidValue(value) {
@@ -35,6 +46,7 @@ func hasValidValues(values []string) bool {
 	return true
 }
 
+// The same rule was also applied here.
 func hasValidValue(value string) bool {
 	if !hasValidStart(value) {
 		return false
