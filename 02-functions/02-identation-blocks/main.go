@@ -41,12 +41,12 @@ func hasValidValue(value string) bool {
 		return false
 	}
 
-	valueAsNumber, err := strconv.Atoi(value)
+	convertedValue, err := strconv.Atoi(value)
 	if err != nil {
 		return false
 	}
 
-	return hasValidRange(valueAsNumber)
+	return hasValidRange(convertedValue)
 }
 
 // This function still have two identation levels, but it still simple

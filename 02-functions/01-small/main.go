@@ -31,12 +31,12 @@ func hasValidRange(number int) bool {
 // This function still does a lot of things. We can apply the same rule here, break it into small functions. But we will cover it later.
 func hasValidValue(value string) bool {
 	if value == "0" || string(value[0]) != "0" {
-		valueAsNumber, err := strconv.Atoi(value)
+		convertedValue, err := strconv.Atoi(value)
 		if err != nil {
 			return false
 		}
 
-		if !hasValidRange(valueAsNumber) {
+		if !hasValidRange(convertedValue) {
 			return false
 		}
 

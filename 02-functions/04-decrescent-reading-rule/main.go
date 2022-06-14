@@ -40,12 +40,12 @@ func hasValidValue(value string) bool {
 		return false
 	}
 
-	valueAsNumber, err := convertToNumber(value)
+	convertedValue, err := convertToNumber(value)
 	if err != nil {
 		return false
 	}
 
-	return hasValidRange(valueAsNumber)
+	return hasValidRange(convertedValue)
 }
 
 func hasValidStart(value string) bool {
@@ -56,6 +56,6 @@ func convertToNumber(value string) (int, error) {
 	return strconv.Atoi(value)
 }
 
-func hasValidRange(number int) bool {
-	return number >= 0 && number <= 255
+func hasValidRange(value int) bool {
+	return value >= 0 && value <= 255
 }

@@ -47,12 +47,12 @@ func hasValidValue(value string) bool {
 		return false
 	}
 
-	valueAsNumber, err := convertToNumber(value)
+	convertedValue, err := convertToNumber(value)
 	if err != nil {
 		return false
 	}
 
-	return hasValidRange(valueAsNumber)
+	return hasValidRange(convertedValue)
 }
 
 func convertToNumber(value string) (int, error) {
