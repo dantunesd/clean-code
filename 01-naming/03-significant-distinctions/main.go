@@ -19,3 +19,18 @@ var varProduct Product
 
 // Bad: Yes, it's a variable and a struct
 var productStruct Product
+
+// Good: It's probably returning a product object
+func GetProduct() {
+	// returning a product
+}
+
+// Bad: Should I call GetProduct or GetProductInfo. What's the difference between them?
+func GetProductInfo() {
+	// returning a product info(?)
+}
+
+// Bad: aaaaaaaaaaaaa
+func GetProductData() {
+	// returning a product data(?)
+}
