@@ -414,7 +414,7 @@ type Address struct {
 
 ## Functions
 
-### Should be small
+### Small
 
 Great functions are difficult to understand because they do a lot diffrent things, have lots of statements chained, have different levels of abstraction, have a confused reading flow, and so on...
 
@@ -423,109 +423,128 @@ Small functions should have preferably at most 5 lines. The less the better.
 #### Bad
 
 ```golang
-func IsValidIp(ip string) bool {
-    values := strings.Split(ip, ".")
+func SomeWeirdOperation() {
+	if 1 < 10 {
+		fmt.Println("1 is lowen than 10")
+	}
 
-    if len(values) != 4 {
-        return false
-    }
+	for i := 0; i < 5; i++ {
+		fmt.Printf("printing %d\n", i)
+	}
 
-    for _, value := range values {
-        if value == "0" || string(value[0]) != "0" {
-            valueAsNumber, err := strconv.Atoi(value)
-            if err != nil {
-                return false
-            }
+	currentTime := time.Now()
+	fmt.Printf("Now: %s\n", currentTime.String())
 
-            if valueAsNumber >= 0 && valueAsNumber <= 255 {
-                continue
-            } else {
-                return false
-            }
-        } else {
-            return false
-        }
-    }
+    // doing another thing 
 
-    return true
+    // doing one more
+
+    // still going
 }
-
 ```
 
 #### Good
 
 ```golang
-func IsValidIp(ip string) bool {
-    values := splitIp(ip)
-
-    if !isAnOctet(values) {
-        return false
-    }
-
-    return hasValidValues(values)
+func SomeWeirdOperation() {
+	printIfNumberOneIsLowerThanTen()
+	printHelloFiveTimes()
+	printCurrentTime()
 }
 
-func splitIp(ip string) []string {
-    return strings.Split(ip, ".")
+func printIfNumberOneIsLowerThanTen() {
+	if 1 < 10 {
+		fmt.Println("1 is lowen than 10")
+	}
 }
 
-func isAnOctet(values []string) bool {
-    return len(values) == 4
+func printHelloFiveTimes() {
+	for i := 0; i < 5; i++ {
+		fmt.Printf("hello")
+	}
 }
 
-func hasValidValues(values []int) bool {
-    // for each value, calls hasValidValue
+func printCurrentTime() {
+	currentTime := time.Now()
+	fmt.Printf("Now: %s\n", currentTime.String())
 }
-
-func hasValidValue(value string) bool {
-    // validating each value received separately... and still going...
-}
-
 ```
 
 ---
 
 ### Identation block
 
+To have good functions, in addition of being small, they must have few identations level. At most 2 levels.
+
+The less "if" inside "if", "for" inside another "for", the simpler your code will looks like
+
 #### Bad
 
 ```golang
-func AlternateWordCase(word string) string {
-    var result string
+func AnotherWeirdOperation() {
+	for i := 0; i <= 10; i++ {
+		if i == 0 {
+			fmt.Println("starting")
+		}
 
-    for _, letter := range word {
-        if strings.ToUpper(string(letter)) == string(letter) {
-            result += strings.ToLower(string(letter))
-        } else {
-            result += strings.ToUpper(string(letter))
-        }
-    }
+		if i == 5 {
+			fmt.Println("we've arrived at half")
+		}
 
-    return result
+		if i == 10 {
+			fmt.Println("let's just loop two more times")
+
+			for j := 0; j < 2; j++ {
+				fmt.Println("last two loops")
+			}
+
+            fmt.Println("bye")
+		}
+	}
 }
+
 ```
 
 #### Good
 
 ```golang
-func AlternateWordCase(word string) string {
-    var result string
-    AlternateLettersCase(word, &result)
-    return result
+
+func AnotherWeirdOperation() {
+	for i := 0; i <= 10; i++ {
+		PrintStartMessage(i)
+		PrintMiddleMessage(i)
+		PrintFinalMessage(i)
+	}
 }
 
-func AlternateLettersCase(word string, result *string) {
-    for _, letter := range word {
-        *result += AlternateLetterCase(string(letter))
-    }
+func PrintStartMessage(i int) {
+	if i == 0 {
+		fmt.Println("starting")
+	}
 }
 
-func AlternateLetterCase(letter string) string {
-    if strings.ToUpper(letter) == letter {
-        return strings.ToLower(letter)
-    }
-    return strings.ToUpper(letter)
+func PrintMiddleMessage(i int) {
+	if i == 5 {
+		fmt.Println("we've arrived at half")
+	}
 }
+
+func PrintFinalMessage(i int) {
+	if i == 10 {
+		PrintLastTwoLapsMessage()
+
+		fmt.Println("bye")
+	}
+}
+
+func PrintLastTwoLapsMessage() {
+	fmt.Println("let's just loop two more times")
+
+	for j := 0; j < 2; j++ {
+		fmt.Println("last two loops")
+	}
+}
+```
 
 ```
 
