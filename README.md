@@ -575,16 +575,13 @@ func PrintTwoMoreLoopsMessage() {
 #### Bad
 
 ```golang
-func (c *CustomerService) Create(name, email string) error {
-    if len(name) > 50 {
-        return errors.New("invalid name")
-    }
-
+// Many different abstraction levels here. It knows details of how to validate a customer and how to log, but it delegates saving operation.
+func CreateCustomer(name, email string) error {
     if email != "just.an.example@gmail.com" {
         return errors.New("invalid email")
     }
 
-    if err := c.customerRepository.Save(name, email); err != nil {
+    if err := saveCustomerOnDatabase(name, email); err != nil {
         return err
     }
 
@@ -593,34 +590,34 @@ func (c *CustomerService) Create(name, email string) error {
     return nil
 }
 
-// Many different abstraction levels here. It knows details of how to validate a customer and how to log, but it delegates saving operation.
+// Imagine this function saves on database
+func saveCustomerOnDatabase(name, email string) error {
+    return nil
+}
+
 
 ```
 
 #### Good
 
 ```golang
-// Now this function delegates everything. It calls methods to do the low level details. They are now abstracted.
-func (c *CustomerService) Create(name, email string) error {
-    if err := c.validateCustomer(name, email); err != nil {
+// Now this function delegates all the lowest level details to others functions. They are now abstracted.
+func CreateCustomer(name, email string) error {
+    if err := validateCustomer(name, email); err != nil {
         return err
     }
 
-    if err := c.customerRepository.Save(name, email); err != nil {
+    if err := saveCustomerOnDatabase(name, email); err != nil {
         return err
     }
 
-    c.logCustomerCreated()
+    logCustomerCreated()
 
     return nil
 }
 
-// This function only does validations on customer data, but still not knowing lower details.
-func (c *CustomerService) validateCustomer(name, email string) error {
-    if !isValidName(name) {
-        return errors.New("invalid name")
-    }
-
+// Still delegating some lower level details
+func validateCustomer(name, email string) error {
     if !isValidEmail(email) {
         return errors.New("invalid email")
     }
@@ -628,18 +625,18 @@ func (c *CustomerService) validateCustomer(name, email string) error {
     return nil
 }
 
-// This function contains de lowest abstraction detail level
-func isValidName(name string) bool {
-    return len(name) < 50
-}
-
-// Same here
+// This function contains de lowest level detail
 func isValidEmail(email string) bool {
     return email == "just.an.example@gmail.com"
 }
 
 // Same here
-func (c *CustomerService) logCustomerCreated() {
+func saveCustomerOnDatabase(name, email string) error {
+    return nil
+}
+
+// Same here
+func logCustomerCreated() {
     log.Printf("Date: %s Message: %s", time.Now(), "Customer created")
 }
 ```
