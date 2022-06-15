@@ -40,6 +40,7 @@ func SumSquare(numbers []int) int {
 #### Bad
 
 ```golang
+// A simple struct
 type Car struct {}
 
 // It's not really an array
@@ -52,6 +53,7 @@ var yyyymmdd time.Now()
 #### Good
 
 ```golang
+// A simple struct
 type Car struct {}
 
 // Just Cars
@@ -67,6 +69,7 @@ var currentTime time.Now()
 #### Bad
 
 ```golang
+// A simple struct
 type Car struct {}
 
 // Good name
@@ -76,7 +79,6 @@ var car Car
 var car2 Car
 
 // What's the real difference between the functions below?
-
 func GetCar() Car {
     // Returning a Car
 }
@@ -93,14 +95,16 @@ func GetCarData() string {
 #### Good
 
 ```golang
+// A simple struct
+type Car struct {}
+
 // Meaningful distinction. It's my car
 var myCar Car
 
 // Meaningful distinction. It's my wife's car
 var myWifesCar Car
 
-// Difference between them is clear
-
+// Difference between them is clear now
 func GetCar() Car {
     // returning a Car
 }
@@ -127,7 +131,7 @@ var a = 22
 #### Good
 
 ```golang
-// It will be easier to find out all ocurrencies
+// It will be easier to find all ocurrencies
 var averageMonthlyWorkDays = 22
 ```
 
