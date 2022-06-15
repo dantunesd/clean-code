@@ -424,16 +424,16 @@ Small functions should have preferably at most 5 lines. The less the better.
 
 ```golang
 func SomeWeirdOperation() {
-	if 1 < 10 {
-		fmt.Println("1 is lowen than 10")
-	}
+    if 1 < 10 {
+        fmt.Println("1 is lowen than 10")
+    }
 
-	for i := 0; i < 5; i++ {
-		fmt.Printf("printing %d\n", i)
-	}
+    for i := 0; i < 5; i++ {
+        fmt.Printf("printing %d\n", i)
+    }
 
-	currentTime := time.Now()
-	fmt.Printf("Now: %s\n", currentTime.String())
+    currentTime := time.Now()
+    fmt.Printf("Now: %s\n", currentTime.String())
 
     // doing another thing 
 
@@ -447,26 +447,26 @@ func SomeWeirdOperation() {
 
 ```golang
 func SomeWeirdOperation() {
-	printIfNumberOneIsLowerThanTen()
-	printHelloFiveTimes()
-	printCurrentTime()
+    printIfNumberOneIsLowerThanTen()
+    printHelloFiveTimes()
+    printCurrentTime()
 }
 
 func printIfNumberOneIsLowerThanTen() {
-	if 1 < 10 {
-		fmt.Println("1 is lowen than 10")
-	}
+    if 1 < 10 {
+        fmt.Println("1 is lowen than 10")
+    }
 }
 
 func printHelloFiveTimes() {
-	for i := 0; i < 5; i++ {
-		fmt.Printf("hello")
-	}
+    for i := 0; i < 5; i++ {
+        fmt.Printf("hello")
+    }
 }
 
 func printCurrentTime() {
-	currentTime := time.Now()
-	fmt.Printf("Now: %s\n", currentTime.String())
+    currentTime := time.Now()
+    fmt.Printf("Now: %s\n", currentTime.String())
 }
 ```
 
@@ -482,25 +482,25 @@ The less "if" inside "if", "for" inside another "for", the simpler your code wil
 
 ```golang
 func AnotherWeirdOperation() {
-	for i := 0; i <= 10; i++ {
-		if i == 0 {
-			fmt.Println("starting")
-		}
+    for i := 0; i <= 10; i++ {
+        if i == 0 {
+            fmt.Println("starting")
+        }
 
-		if i == 5 {
-			fmt.Println("we've arrived at half")
-		}
+        if i == 5 {
+            fmt.Println("we've arrived at half")
+        }
 
-		if i == 10 {
-			fmt.Println("let's just loop two more times")
+        if i == 10 {
+            fmt.Println("let's just loop two more times")
 
-			for j := 0; j < 2; j++ {
-				fmt.Println("last two loops")
-			}
+            for j := 0; j < 2; j++ {
+                fmt.Println("last two loops")
+            }
 
             fmt.Println("bye")
-		}
-	}
+        }
+    }
 }
 
 ```
@@ -510,39 +510,39 @@ func AnotherWeirdOperation() {
 ```golang
 
 func AnotherWeirdOperation() {
-	for i := 0; i <= 10; i++ {
-		PrintStartMessage(i)
-		PrintMiddleMessage(i)
-		PrintFinalMessage(i)
-	}
+    for i := 0; i <= 10; i++ {
+        PrintStartMessage(i)
+        PrintMiddleMessage(i)
+        PrintFinalMessage(i)
+    }
 }
 
 func PrintStartMessage(i int) {
-	if i == 0 {
-		fmt.Println("starting")
-	}
+    if i == 0 {
+        fmt.Println("starting")
+    }
 }
 
 func PrintMiddleMessage(i int) {
-	if i == 5 {
-		fmt.Println("we've arrived at half")
-	}
+    if i == 5 {
+        fmt.Println("we've arrived at half")
+    }
 }
 
 func PrintFinalMessage(i int) {
-	if i == 10 {
-		PrintLastTwoLapsMessage()
+    if i == 10 {
+        PrintLastTwoLapsMessage()
 
-		fmt.Println("bye")
-	}
+        fmt.Println("bye")
+    }
 }
 
 func PrintLastTwoLapsMessage() {
-	fmt.Println("let's just loop two more times")
+    fmt.Println("let's just loop two more times")
 
-	for j := 0; j < 2; j++ {
-		fmt.Println("last two loops")
-	}
+    for j := 0; j < 2; j++ {
+        fmt.Println("last two loops")
+    }
 }
 ```
 
