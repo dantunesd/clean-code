@@ -19,6 +19,8 @@ A brief description of what this project does and who it's for
     - [Avoid unnecessary contex](#avoid-unnecessary-context)
 - [Functions](#functions)
     - [Small](#small)
+    - [Identation blocks](#identation-blocks)
+    - [One abstraction level per function](#one-abstraction-level-per-function)
 
 
 ## Naming
@@ -435,35 +437,39 @@ func SomeWeirdOperation() {
     currentTime := time.Now()
     fmt.Printf("Now: %s\n", currentTime.String())
 
-    // doing another thing 
+    // Doing another thing, now we have 9 lines of code
 
-    // doing one more
+    // Doing one more, now 10 lines of code
 
-    // still going
+    // Still going, now 11 lines of code
 }
 ```
 
 #### Good
 
 ```golang
+// Now this function delagates everything and it has only 3 lines of code
 func SomeWeirdOperation() {
     printIfNumberOneIsLowerThanTen()
     printHelloFiveTimes()
     printCurrentTime()
 }
 
+// 3 lines of code (counting the brackets)
 func printIfNumberOneIsLowerThanTen() {
     if 1 < 10 {
         fmt.Println("1 is lowen than 10")
     }
 }
 
+// 3 lines of code
 func printHelloFiveTimes() {
     for i := 0; i < 5; i++ {
         fmt.Printf("hello")
     }
 }
 
+// 2 lines of code
 func printCurrentTime() {
     currentTime := time.Now()
     fmt.Printf("Now: %s\n", currentTime.String())
@@ -472,7 +478,7 @@ func printCurrentTime() {
 
 ---
 
-### Identation block
+### Identation blocks
 
 To have good functions, in addition of being small, they must have few identations level. At most 2 levels.
 
@@ -482,18 +488,24 @@ The less "if" inside another "if", "for" inside another "for", the simpler your 
 
 ```golang
 func AnotherWeirdOperation() {
+    // Only one for? no problem...
     for i := 0; i <= 10; i++ {
+
+        // Ok, one if inside a for
         if i == 0 {
             fmt.Println("starting")
         }
 
+        // Another
         if i == 5 {
             fmt.Println("we've arrived at half")
         }
 
+        // Another
         if i == 10 {
             fmt.Println("let's just loop two more times")
 
+            // Another for? It's getting confused now
             for j := 0; j < 2; j++ {
                 fmt.Println("last two loops")
             }
@@ -508,27 +520,35 @@ func AnotherWeirdOperation() {
 #### Good
 
 ```golang
-
+// Just one for with one method call
 func AnotherWeirdOperation() {
     for i := 0; i <= 10; i++ {
-        PrintStartMessage(i)
-        PrintMiddleMessage(i)
-        PrintFinalMessage(i)
+        PrintMessages(i)
     }
 }
 
+// Just calling methods
+func PrintMessages(i int) {
+    PrintStartMessage(i)
+    PrintMiddleMessage(i)
+    PrintFinalMessage(i)
+}
+
+// Just one if
 func PrintStartMessage(i int) {
     if i == 0 {
         fmt.Println("starting")
     }
 }
 
+// Just one if
 func PrintMiddleMessage(i int) {
     if i == 5 {
         fmt.Println("we've arrived at half")
     }
 }
 
+// Just one if and a method call
 func PrintFinalMessage(i int) {
     if i == 10 {
         PrintTwoMoreLoopsMessage()
@@ -536,6 +556,7 @@ func PrintFinalMessage(i int) {
     }
 }
 
+// Just one for
 func PrintTwoMoreLoopsMessage() {
     fmt.Println("let's just loop two more times")
     for i := 0; i < 2; i++ {
@@ -544,7 +565,97 @@ func PrintTwoMoreLoopsMessage() {
 }
 ```
 
+---
+
+### One abstraction level per function
+
+ Good functions must do only one thing. But, how to know if it's doing really only one thing? It must have only one abstraction level.
+ Low and high details together it's a good sign that it's doing more than one thing.
+
+#### Bad
+
+```golang
+// Ultra basic example of a Service to create a customer
+type CustomerService struct {
+    // An repository dependency example
+	customerRepository CustomerRepository
+}
+
+// This function knows details of how to validate a Customer, calls a repository method to save a Customer, and knows logging details.
+// Many different levels of abstraction here
+func (c *CustomerService) Create(name, email string) error {
+	if len(name) > 50 {
+		return errors.New("invalid name")
+	}
+
+	if email != "just.an.example@gmail.com" {
+		return errors.New("invalid email")
+	}
+
+	if err := c.customerRepository.Save(name, email); err != nil {
+		return err
+	}
+
+	log.Println("Customer created successfully")
+
+	return nil
+}
+```
+
+#### Good
+
+```golang
+// Ultra basic example of a Service to create a customer
+type CustomerService struct {
+    // An repository dependency example
+	customerRepository CustomerRepository
+}
+
+// This function now delegates everything. It calls methods to validate, save and log. Those low details are now abstracted.
+func (c *CustomerService) Create(name, email string) error {
+	if err := c.validateCustomer(name, email); err != nil {
+		return err
+	}
+
+	if err := c.customerRepository.Save(name, email); err != nil {
+		return err
+	}
+
+	c.logCustomerCreated()
+
+	return nil
+}
+
+// This function only does validations on customer data, but still not knowing lower details. It delagates to others functions
+func (c *CustomerService) validateCustomer(name, email string) error {
+	if !isValidName(name) {
+		return errors.New("invalid name")
+	}
+
+	if !isValidEmail(email) {
+		return errors.New("invalid email")
+	}
+
+	return nil
+}
+
+// This function contains de lowest detail 
+func isValidName(name string) bool {
+	return len(name) < 50
+}
+
+// This function contains de lowest detail
+func isValidEmail(email string) bool {
+	return email == "just.an.example@gmail.com"
+}
+
+// This function contains de lowest detail
+func (c *CustomerService) logCustomerCreated() {
+	log.Println("Customer created successfully")
+}
 ```
 
 ---
+
+
 
