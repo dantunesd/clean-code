@@ -17,6 +17,9 @@ A brief description of what this project does and who it's for
     - [Use domain solution and problem names](#use-domain-solution-and-problem-names)
     - [Meaningful context](#meaningful-context)
     - [Avoid unnecessary contex](#avoid-unnecessary-context)
+- [Functions](#functions)
+    - [Small](#small)
+
 
 ## Naming
 
@@ -405,6 +408,125 @@ type Address struct {
 	Number int
 	State  string
 }
+```
+
+---
+
+## Functions
+
+### Should be small
+
+Great functions are difficult to understand because they do a lot diffrent things, have lots of statements chained, have different levels of abstraction, have a confused reading flow, and so on...
+
+Small functions should have preferably at most 5 lines. The less the better.
+
+#### Bad
+
+```golang
+func IsValidIp(ip string) bool {
+	values := strings.Split(ip, ".")
+
+	if len(values) != 4 {
+		return false
+	}
+
+	for _, value := range values {
+		if value == "0" || string(value[0]) != "0" {
+			valueAsNumber, err := strconv.Atoi(value)
+			if err != nil {
+				return false
+			}
+
+			if valueAsNumber >= 0 && valueAsNumber <= 255 {
+				continue
+			} else {
+				return false
+			}
+		} else {
+			return false
+		}
+	}
+
+	return true
+}
+
+```
+
+#### Good
+
+```golang
+func IsValidIp(ip string) bool {
+	values := splitIp(ip)
+
+    if !isAnOctet(values) {
+		return false
+	}
+
+	return hasValidValues(values)
+}
+
+func splitIp(ip string) []string {
+	return strings.Split(ip, ".")
+}
+
+func isAnOctet(values []string) bool {
+	return len(values) == 4
+}
+
+func hasValidValues(values []int) bool {
+	// for each value, calls hasValidValue
+}
+
+func hasValidValue(value string) bool {
+	// validating each value received separately... and still going...
+}
+
+```
+
+---
+
+### Identation block
+
+#### Bad
+
+```golang
+func AlternateWordCase(word string) string {
+	var result string
+
+	for _, letter := range word {
+		if strings.ToUpper(string(letter)) == string(letter) {
+			result += strings.ToLower(string(letter))
+		} else {
+			result += strings.ToUpper(string(letter))
+		}
+	}
+
+	return result
+}
+```
+
+#### Good
+
+```golang
+func AlternateWordCase(word string) string {
+	var result string
+	AlternateLettersCase(word, &result)
+	return result
+}
+
+func AlternateLettersCase(word string, result *string) {
+	for _, letter := range word {
+		*result += AlternateLetterCase(string(letter))
+	}
+}
+
+func AlternateLetterCase(letter string) string {
+	if strings.ToUpper(letter) == letter {
+		return strings.ToLower(letter)
+	}
+	return strings.ToUpper(letter)
+}
+
 ```
 
 ---
