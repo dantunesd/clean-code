@@ -3,6 +3,21 @@
 
 A brief description of what this project does and who it's for
 
+## Summary
+
+- [Naming](#naming)
+    - [Meaningful names](#meaningful-names)
+    - [Avoid wrong information](#avoid-wrong-information)
+    - [Meaningful distinction](#meaningful-distinction)
+    - [Searchable names](#searchable-names)
+    - [Avoid mental mapping](#avoid-mental-mapping)
+    - [Class names](#class-names)
+    - [Method names](#method-names)
+    - [One word per context](#one-word-per-context)
+    - [Use domain solution and problem names](#use-domain-solution-and-problem-names)
+    - [Meaningful context](#meaningful-context)
+    - [Avoid unnecessary contex](#avoid-unnecessary-context)
+
 ## Naming
 
 ### Meaningful names
