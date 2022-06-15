@@ -476,7 +476,7 @@ func printCurrentTime() {
 
 To have good functions, in addition of being small, they must have few identations level. At most 2 levels.
 
-The less "if" inside "if", "for" inside another "for", the simpler your code will looks like
+The less "if" inside another "if", "for" inside another "for", the simpler your code will looks like
 
 #### Bad
 
@@ -531,16 +531,14 @@ func PrintMiddleMessage(i int) {
 
 func PrintFinalMessage(i int) {
     if i == 10 {
-        PrintLastTwoLapsMessage()
-
+        PrintTwoMoreLoopsMessage()
         fmt.Println("bye")
     }
 }
 
-func PrintLastTwoLapsMessage() {
+func PrintTwoMoreLoopsMessage() {
     fmt.Println("let's just loop two more times")
-
-    for j := 0; j < 2; j++ {
+    for i := 0; i < 2; i++ {
         fmt.Println("last two loops")
     }
 }
