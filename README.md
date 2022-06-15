@@ -655,34 +655,32 @@ package main
 
 import "fmt"
 
-func IamTheFifthCalled() {
-    fmt.Println("I am the fifth")
+func ICallTheLastOne() {
+    fmt.Println("I am the last")
 }
 
-func IamTheThirdCalled() {
+func IamTheThird() {
     fmt.Println("I am the third")
 }
 
 func main() {
-    IamTheFirstCalled()
-    IamTheSecondCalled()
-    IamTheThirdCalled()
-    IamTheFourthCalled()
-    IamTheFifthCalled()
+    IamTheFirst()
+    IamTheSecond()
+    IamTheThird()
+    IamSpecial()
 }
 
-func IamTheSecondCalled() {
+func IamSpecial() {
+    ICallTheLastOne()
+}
+
+func IamTheSecond() {
     fmt.Println("I am the second")
 }
 
-func IamTheFirstCalled() {
+func IamTheFirst() {
     fmt.Println("I am the first")
 }
-
-func IamTheFourthCalled() {
-    fmt.Println("I am the fourth")
-}
-
 ```
 
 #### Good
@@ -693,33 +691,31 @@ package main
 import "fmt"
 
 func main() {
-    IamTheFirstCalled()
-    IamTheSecondCalled()
-    IamTheThirdCalled()
-    IamTheFourthCalled()
-    IamTheFifthCalled()
+    IamTheFirst()
+    IamTheSecond()
+    IamTheThird()
+    IamSpecial()
 }
 
-func IamTheFirstCalled() {
+func IamTheFirst() {
     fmt.Println("I am the first")
 }
 
-func IamTheSecondCalled() {
+func IamTheSecond() {
     fmt.Println("I am the second")
 }
 
-func IamTheThirdCalled() {
+func IamTheThird() {
     fmt.Println("I am the third")
 }
 
-func IamTheFourthCalled() {
-    fmt.Println("I am the fourth")
+func IamSpecial() {
+    ICallTheLastOne()
 }
 
-func IamTheFifthCalled() {
-    fmt.Println("I am the fifth")
+func ICallTheLastOne() {
+    fmt.Println("I am the last")
 }
-
 ```
 
 ---
