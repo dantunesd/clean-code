@@ -431,7 +431,7 @@ func SomeWeirdOperation() {
     }
 
     for i := 0; i < 5; i++ {
-        fmt.Printf("printing %d\n", i)
+        fmt.Printf("hello")
     }
 
     currentTime := time.Now()
@@ -575,83 +575,72 @@ func PrintTwoMoreLoopsMessage() {
 #### Bad
 
 ```golang
-// Ultra basic example of a Service to create a customer
-type CustomerService struct {
-    // An repository dependency example
-	customerRepository CustomerRepository
-}
-
-// This function knows details of how to validate a Customer, calls a repository method to save a Customer, and knows logging details.
-// Many different levels of abstraction here
 func (c *CustomerService) Create(name, email string) error {
-	if len(name) > 50 {
-		return errors.New("invalid name")
-	}
+    if len(name) > 50 {
+        return errors.New("invalid name")
+    }
 
-	if email != "just.an.example@gmail.com" {
-		return errors.New("invalid email")
-	}
+    if email != "just.an.example@gmail.com" {
+        return errors.New("invalid email")
+    }
 
-	if err := c.customerRepository.Save(name, email); err != nil {
-		return err
-	}
+    if err := c.customerRepository.Save(name, email); err != nil {
+        return err
+    }
 
-	log.Println("Customer created successfully")
+    log.Printf("Date: %s Message: %s", time.Now(), "Customer created")
 
-	return nil
+    return nil
 }
+
+// Many different abstraction levels here. It knows details of how to validate a customer and how to log, but it delegates saving operation.
+
 ```
 
 #### Good
 
 ```golang
-// Ultra basic example of a Service to create a customer
-type CustomerService struct {
-    // An repository dependency example
-	customerRepository CustomerRepository
-}
-
-// This function now delegates everything. It calls methods to validate, save and log. Those low details are now abstracted.
+// Now this function delegates everything. It calls methods to do the low level details. They are now abstracted.
 func (c *CustomerService) Create(name, email string) error {
-	if err := c.validateCustomer(name, email); err != nil {
-		return err
-	}
+    if err := c.validateCustomer(name, email); err != nil {
+        return err
+    }
 
-	if err := c.customerRepository.Save(name, email); err != nil {
-		return err
-	}
+    if err := c.customerRepository.Save(name, email); err != nil {
+        return err
+    }
 
-	c.logCustomerCreated()
+    c.logCustomerCreated()
 
-	return nil
+    return nil
 }
 
-// This function only does validations on customer data, but still not knowing lower details. It delagates to others functions
+// This function only does validations on customer data, but still not knowing lower details.
 func (c *CustomerService) validateCustomer(name, email string) error {
-	if !isValidName(name) {
-		return errors.New("invalid name")
-	}
+    if !isValidName(name) {
+        return errors.New("invalid name")
+    }
 
-	if !isValidEmail(email) {
-		return errors.New("invalid email")
-	}
+    if !isValidEmail(email) {
+        return errors.New("invalid email")
+    }
 
-	return nil
+    return nil
 }
 
-// This function contains de lowest detail 
+// This function contains de lowest abstraction detail level
 func isValidName(name string) bool {
-	return len(name) < 50
+    return len(name) < 50
 }
 
-// This function contains de lowest detail
+// Same here
 func isValidEmail(email string) bool {
-	return email == "just.an.example@gmail.com"
+    return email == "just.an.example@gmail.com"
 }
 
-// This function contains de lowest detail
+// Same here
 func (c *CustomerService) logCustomerCreated() {
-	log.Println("Customer created successfully")
+    log.Printf("Date: %s Message: %s", time.Now(), "Customer created")
 }
 ```
 
