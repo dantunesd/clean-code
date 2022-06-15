@@ -231,7 +231,7 @@ func (e *Employee) Name() string {
 	return e.name
 }
 
-// If you are asking something is something else, puts "is" as prefix
+// If you are asking if something is something else, puts "is" as prefix
 func (e *Employee) Brazilian() bool {
 	return e.nationality == "BRASIL"
 }
@@ -334,10 +334,16 @@ type Account struct{}
 
 ```golang
 
-// Only after reading these 3 variables you may notice that them is part Address. Now imagine if they were all spread out in some code.
-ber int
-ate string
+// it could represent whatever number.
+var number int
+
+// it could represent a state name? like "active" or "inactive".
+var state string
+
+// now i'm getting the context... an address
 var street string
+
+// Only after reading these 3 variables you may notice that them is part of a bigger context: Address. Now imagine if they were all spread out in some code.
 ```
 
 #### Good
