@@ -9,6 +9,7 @@ A brief description of what this project does and who it's for
     - [Meaningful names](#meaningful-names)
     - [Avoid wrong information](#avoid-wrong-information)
     - [Meaningful distinction](#meaningful-distinction)
+    - [Pronounceable names](#pronounceable-names)
     - [Searchable names](#searchable-names)
     - [Avoid mental mapping](#avoid-mental-mapping)
     - [Class names](#class-names)
@@ -137,6 +138,24 @@ func GetCars() []Car {
 func GetCarName() string {
     // returning car name
 }
+```
+
+---
+
+### Pronounceable names
+
+#### Bad
+
+```golang
+// It's not a word, it's difficult to pronounce
+var crtTm = time.Now()
+```
+
+#### Good
+
+```golang
+// It's a word, easy to pronounce
+var currentTime = time.Now()
 ```
 
 ---
