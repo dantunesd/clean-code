@@ -30,11 +30,11 @@ A brief description of what this project does and who it's for
 ```golang
 // What dooes "Sq" do? What "s" means? What about "t" and "n"?
 func Sq(s []int) int {
-	var t int
-	for _, n := range s {
-		t += n * n
-	}
-	return t
+    var t int
+    for _, n := range s {
+        t += n * n
+    }
+    return t
 }
 ```
 
@@ -43,11 +43,11 @@ func Sq(s []int) int {
 ```golang
 // A function which receives some numbers and does a square sum operation
 func SumSquare(numbers []int) int {
-	var totalSum int
-	for _, number := range numbers {
-		totalSum += number * number
-	}
-	return totalSum
+    var totalSum int
+    for _, number := range numbers {
+        totalSum += number * number
+    }
+    return totalSum
 }
 ```
 
@@ -210,11 +210,11 @@ var taxi Vehicle
 ```golang
 // Avoid generic names such as Data, Info, Manager, Process, and so on.
 type CustomerData struct {
-	Name string
+    Name string
 }
 
 type CarInfo struct {
-	Manufacturer string
+    Manufacturer string
 }
 ```
 
@@ -223,11 +223,11 @@ type CarInfo struct {
 ```golang
 // Prefer using just nouns for naming 
 type Customer struct {
-	Name string
+    Name string
 }
 
 type Car struct {
-	Manufacturer string
+    Manufacturer string
 }
 ```
 
@@ -240,18 +240,18 @@ type Car struct {
 ```golang
 // A simple struct
 type Employee struct {
-	name        string
-	nationality string
+    name        string
+    nationality string
 }
 
 // Methods should contain verbs on its name. Puts "get" when getting some data
 func (e *Employee) Name() string {
-	return e.name
+    return e.name
 }
 
 // If you are asking if something is something else, puts "is" as prefix
 func (e *Employee) Brazilian() bool {
-	return e.nationality == "BRASIL"
+    return e.nationality == "BRASIL"
 }
 ```
 
@@ -260,18 +260,18 @@ func (e *Employee) Brazilian() bool {
 ```golang
 // A simple struct
 type Employee struct {
-	name        string
-	nationality string
+    name        string
+    nationality string
 }
 
 // Methods are actions, actions are verbs. Methods should contain a verb on its name.
 func (e *Employee) GetName() string {
-	return e.name
+    return e.name
 }
 
 // Is the employee brazilian?
 func (e *Employee) IsBrazilian() bool {
-	return e.nationality == "BRASIL"
+    return e.nationality == "BRASIL"
 }
 ```
 
@@ -284,22 +284,22 @@ func (e *Employee) IsBrazilian() bool {
 ```golang
 // A simple struct
 type Customer struct {
-	Name string
+    Name string
 }
 
 // Another simple struct
 type Car struct {
-	Name string
+    Name string
 }
 
 // This function returns the object name
 func (c *Customer) GetName() string {
-	return c.Name
+    return c.Name
 }
 
 // This function also returns the object name. But, why naming it different?
 func (c *Car) RetrieveName() string {
-	return c.Name
+    return c.Name
 }
 ```
 
@@ -308,22 +308,22 @@ func (c *Car) RetrieveName() string {
 ```golang
 // A simple struct
 type Customer struct {
-	Name string
+    Name string
 }
 
 // Another simple struct
 type Car struct {
-	Name string
+    Name string
 }
 
 // This function returns the object name
 func (c *Customer) GetName() string {
-	return c.Name
+    return c.Name
 }
 
 // Using the same name for the same concept
 func (c *Car) GetName() string {
-	return c.Name
+    return c.Name
 }
 ```
 
@@ -374,9 +374,9 @@ var adressStreet string
 
 // Or even better... Group them together into a Class or Struct when it's possible.
 type Address struct {
-	Street string
-	Number int
-	State  string
+    Street string
+    Number int
+    State  string
 }
 ```
 
@@ -391,9 +391,9 @@ package whatever
 
 // Adding unecessary context
 type whateverPkgAddress struct {
-	AddressStreet string
-	whateverNumber int
-	AdressState  string
+    AddressStreet string
+    whateverNumber int
+    AdressState  string
 }
 ```
 
@@ -404,9 +404,9 @@ package whatever
 
 // Simple, contextualized.
 type Address struct {
-	Street string
-	Number int
-	State  string
+    Street string
+    Number int
+    State  string
 }
 ```
 
@@ -424,30 +424,30 @@ Small functions should have preferably at most 5 lines. The less the better.
 
 ```golang
 func IsValidIp(ip string) bool {
-	values := strings.Split(ip, ".")
+    values := strings.Split(ip, ".")
 
-	if len(values) != 4 {
-		return false
-	}
+    if len(values) != 4 {
+        return false
+    }
 
-	for _, value := range values {
-		if value == "0" || string(value[0]) != "0" {
-			valueAsNumber, err := strconv.Atoi(value)
-			if err != nil {
-				return false
-			}
+    for _, value := range values {
+        if value == "0" || string(value[0]) != "0" {
+            valueAsNumber, err := strconv.Atoi(value)
+            if err != nil {
+                return false
+            }
 
-			if valueAsNumber >= 0 && valueAsNumber <= 255 {
-				continue
-			} else {
-				return false
-			}
-		} else {
-			return false
-		}
-	}
+            if valueAsNumber >= 0 && valueAsNumber <= 255 {
+                continue
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
 
-	return true
+    return true
 }
 
 ```
@@ -456,29 +456,29 @@ func IsValidIp(ip string) bool {
 
 ```golang
 func IsValidIp(ip string) bool {
-	values := splitIp(ip)
+    values := splitIp(ip)
 
     if !isAnOctet(values) {
-		return false
-	}
+        return false
+    }
 
-	return hasValidValues(values)
+    return hasValidValues(values)
 }
 
 func splitIp(ip string) []string {
-	return strings.Split(ip, ".")
+    return strings.Split(ip, ".")
 }
 
 func isAnOctet(values []string) bool {
-	return len(values) == 4
+    return len(values) == 4
 }
 
 func hasValidValues(values []int) bool {
-	// for each value, calls hasValidValue
+    // for each value, calls hasValidValue
 }
 
 func hasValidValue(value string) bool {
-	// validating each value received separately... and still going...
+    // validating each value received separately... and still going...
 }
 
 ```
@@ -491,17 +491,17 @@ func hasValidValue(value string) bool {
 
 ```golang
 func AlternateWordCase(word string) string {
-	var result string
+    var result string
 
-	for _, letter := range word {
-		if strings.ToUpper(string(letter)) == string(letter) {
-			result += strings.ToLower(string(letter))
-		} else {
-			result += strings.ToUpper(string(letter))
-		}
-	}
+    for _, letter := range word {
+        if strings.ToUpper(string(letter)) == string(letter) {
+            result += strings.ToLower(string(letter))
+        } else {
+            result += strings.ToUpper(string(letter))
+        }
+    }
 
-	return result
+    return result
 }
 ```
 
@@ -509,22 +509,22 @@ func AlternateWordCase(word string) string {
 
 ```golang
 func AlternateWordCase(word string) string {
-	var result string
-	AlternateLettersCase(word, &result)
-	return result
+    var result string
+    AlternateLettersCase(word, &result)
+    return result
 }
 
 func AlternateLettersCase(word string, result *string) {
-	for _, letter := range word {
-		*result += AlternateLetterCase(string(letter))
-	}
+    for _, letter := range word {
+        *result += AlternateLetterCase(string(letter))
+    }
 }
 
 func AlternateLetterCase(letter string) string {
-	if strings.ToUpper(letter) == letter {
-		return strings.ToLower(letter)
-	}
-	return strings.ToUpper(letter)
+    if strings.ToUpper(letter) == letter {
+        return strings.ToLower(letter)
+    }
+    return strings.ToUpper(letter)
 }
 
 ```
