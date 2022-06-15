@@ -643,5 +643,86 @@ func logCustomerCreated() {
 
 ---
 
+### Decrescent reading
+
+Good functions are generally small and broken into many smaller functions. But also it must have a good reading flow. Like if we were reading a book.
+Decrescent reading rule is a practice to put functions in order right below where they are called
+
+#### Bad
+
+```golang
+package main
+
+import "fmt"
+
+func IamTheFifthCalled() {
+    fmt.Println("I am the fifth")
+}
+
+func IamTheThirdCalled() {
+    fmt.Println("I am the third")
+}
+
+func main() {
+    IamTheFirstCalled()
+    IamTheSecondCalled()
+    IamTheThirdCalled()
+    IamTheFourthCalled()
+    IamTheFifthCalled()
+}
+
+func IamTheSecondCalled() {
+    fmt.Println("I am the second")
+}
+
+func IamTheFirstCalled() {
+    fmt.Println("I am the first")
+}
+
+func IamTheFourthCalled() {
+    fmt.Println("I am the fourth")
+}
+
+```
+
+#### Good
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+    IamTheFirstCalled()
+    IamTheSecondCalled()
+    IamTheThirdCalled()
+    IamTheFourthCalled()
+    IamTheFifthCalled()
+}
+
+func IamTheFirstCalled() {
+    fmt.Println("I am the first")
+}
+
+func IamTheSecondCalled() {
+    fmt.Println("I am the second")
+}
+
+func IamTheThirdCalled() {
+    fmt.Println("I am the third")
+}
+
+func IamTheFourthCalled() {
+    fmt.Println("I am the fourth")
+}
+
+func IamTheFifthCalled() {
+    fmt.Println("I am the fifth")
+}
+
+```
+
+---
+
 
 
