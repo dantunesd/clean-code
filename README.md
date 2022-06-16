@@ -61,27 +61,15 @@ func SumSquare(numbers []int) int {
 #### Bad
 
 ```golang
-// A simple struct
-type Car struct {}
-
-// It's not really an array
-var carArray []Car
-
 // It does not store the time in yyyymmdd format
-var yyyymmdd time.Now()
+var yyyymmddTime = time.Now()
 ```
 
 #### Good
 
 ```golang
-// A simple struct
-type Car struct {}
-
-// Just Cars
-var cars []Car
-
-// It does store the current time
-var currentTime time.Now()
+// It stores the current time, whatever the format
+var currentTime = time.Now()
 ```
 
 ---
@@ -91,53 +79,39 @@ var currentTime time.Now()
 #### Bad
 
 ```golang
-// A simple struct
-type Car struct {}
+// What's the difference between them?
+var time1 = time.Now()
+var time2 = time.Now().AddDate(0, 0, 1)
+var timeObject = time.Now(AddDate(1, 0, 0)
 
-// Good name
-var car Car
-
-// But, what's the difference between car2 and car variables?
-var car2 Car
-
-// What's the real difference between the functions below?
-func GetCar() Car {
-    // Returning a Car
+// What's the difference between these two functions?
+func getActiveAccount() Account {
+    // some implementation
 }
 
-func GetCarsInfo() Car {
-    // Returning Cars info (?)
-}
-
-func GetCarData() string {
-    // Returning a Car data (?)
+func getActiveAccountInfo() Account {
+    // some implementation
 }
 ```
 
 #### Good
 
 ```golang
-// A simple struct
-type Car struct {}
+// It's clear now
+var now = time.Now()
+var tomorrow = time.Now().AddDate(0, 0, 1)
+var nextYear = time.Now(AddDate(1, 0, 0)
 
-// Meaningful distinction. It's my car
-var myCar Car
-
-// Meaningful distinction. It's my wife's car
-var myWifesCar Car
-
-// Difference between them is clear now
-func GetCar() Car {
-    // returning a Car
+// Returns one account
+func getActiveAccount() Account {
+    // some implementation
 }
 
-func GetCars() []Car {
-    // returning a list of cars
+// Returns a list of accounts
+func getActiveAccounts() []Account {
+    // some implementation
 }
 
-func GetCarName() string {
-    // returning car name
-}
 ```
 
 ---
@@ -154,7 +128,7 @@ var crtTm = time.Now()
 #### Good
 
 ```golang
-// It's a word, easy to pronounce
+// Words, they are easy to pronounce
 var currentTime = time.Now()
 ```
 
@@ -192,12 +166,9 @@ to be implemented
 
 ```golang
 // It's not common to use letters other than "i", "j", "k" in a for statement
-for ç := 0; ç < 2; ç++ {
+for ç := 0; ç < count; ç++ {
     fmt.Println(ç)
 }
-
-// An example of a domain object
-type Vehicle struct {}
 
 // Maybe it's not common word to represents its meaning when talking to your teammates, stakeholders, etc.
 var motorizedMachine Vehicle
@@ -208,15 +179,12 @@ var vehicleThatTakesPeople Vehicle
 #### Good
 
 ```golang
-// Prefer conventions
-for i := 0; i < 2; i++ {
+// Prefer conventions everywhere
+for i := 0; i < count; i++ {
     fmt.Println(i)
 }
 
-// An example of a domain object
-type Vehicle struct {}
-
-// Use ubiquitous language.
+// Use ubiquitous language everywhere.
 var car Vehicle
 var bus Vehicle
 var taxi Vehicle
@@ -230,12 +198,12 @@ var taxi Vehicle
 
 ```golang
 // Avoid generic names such as Data, Info, Manager, Process, and so on.
-type CustomerData struct {
+type CarInfo struct {
     Name string
 }
 
-type CarInfo struct {
-    Manufacturer string
+type CustomerData struct {
+    Name string
 }
 ```
 
@@ -243,12 +211,12 @@ type CarInfo struct {
 
 ```golang
 // Prefer using just nouns for naming 
-type Customer struct {
+type Car struct {
     Name string
 }
 
-type Car struct {
-    Manufacturer string
+type Customer struct {
+    Name string
 }
 ```
 
@@ -259,18 +227,17 @@ type Car struct {
 #### Bad
 
 ```golang
-// A simple struct
 type Employee struct {
     name        string
     nationality string
 }
 
-// Methods should contain verbs on its name. Puts "get" when getting some data
+// Imagine reading this method being called... Employee, "Name".
 func (e *Employee) Name() string {
     return e.name
 }
 
-// If you are asking if something is something else, puts "is" as prefix
+// What "Brazilian" method should do?
 func (e *Employee) Brazilian() bool {
     return e.nationality == "BRASIL"
 }
@@ -279,7 +246,6 @@ func (e *Employee) Brazilian() bool {
 #### Good
 
 ```golang
-// A simple struct
 type Employee struct {
     name        string
     nationality string
@@ -303,23 +269,21 @@ func (e *Employee) IsBrazilian() bool {
 #### Bad
 
 ```golang
-// A simple struct
-type Customer struct {
-    Name string
-}
-
-// Another simple struct
 type Car struct {
     Name string
 }
 
 // This function returns the object name
-func (c *Customer) GetName() string {
+func (c *Car) GetName() string {
     return c.Name
 }
 
+type Customer struct {
+    Name string
+}
+
 // This function also returns the object name. But, why naming it different?
-func (c *Car) RetrieveName() string {
+func (c *Customer) RetrieveName() string {
     return c.Name
 }
 ```
@@ -327,25 +291,25 @@ func (c *Car) RetrieveName() string {
 #### Good
 
 ```golang
-// A simple struct
-type Customer struct {
-    Name string
-}
-
-// Another simple struct
 type Car struct {
     Name string
 }
 
 // This function returns the object name
+func (c *Car) GetName() string {
+    return c.Name
+}
+
+type Customer struct {
+    Name string
+}
+
+// Using the same name for the same concept
 func (c *Customer) GetName() string {
     return c.Name
 }
 
-// Using the same name for the same concept
-func (c *Car) GetName() string {
-    return c.Name
-}
+
 ```
 
 ---
