@@ -24,6 +24,7 @@ A brief description of what this project does and who it's for
     - [One abstraction level per function](#one-abstraction-level-per-function)
     - [Decrescent reading](#decrescent-reading)
     - [Function parameters](#function-parameters)
+    - [Verbs and key-words](#verbs-and-key-words)
 
 
 ## Naming
@@ -680,6 +681,8 @@ The problem with this is that your function will become harder to understand, pr
 
 So, the less parameters your functions receive the better. 0 is the best. 1 (monadic) is good, 2 (dyadic) is ok, 3 or more... well, better no.
 
+Tip: If you find functions which have 3 or more parameters, it's a good sign that they belong to a context. So you can group them in a representative class/struct.
+
 #### Bad
 
 ```golang
@@ -705,4 +708,23 @@ func CreateCustomer(customer *Customer) {
 
 ---
 
+### Verbs and key-words
 
+Functions (mainly monadics) should form a well pair of "verb" and "noun".
+
+#### Good
+
+```golang
+type Customer struct {
+    name      string
+    email     string
+    phone     string
+    birthdate string
+}
+
+func Create(customer *Customer) {
+    // Creating customer
+}
+```
+
+---
