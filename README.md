@@ -83,15 +83,9 @@ var currentTime = time.Now()
 var time1 = time.Now()
 var time2 = time.Now().AddDate(0, 0, 1)
 var timeObject = time.Now(AddDate(1, 0, 0)
+var timeInfo = time.Now()
+var timeVar = time.Now()
 
-// What's the difference between these two functions?
-func getActiveAccount() Account {
-    // some implementation
-}
-
-func getActiveAccountInfo() Account {
-    // some implementation
-}
 ```
 
 #### Good
@@ -101,17 +95,6 @@ func getActiveAccountInfo() Account {
 var now = time.Now()
 var tomorrow = time.Now().AddDate(0, 0, 1)
 var nextYear = time.Now(AddDate(1, 0, 0)
-
-// Returns one account
-func getActiveAccount() Account {
-    // some implementation
-}
-
-// Returns a list of accounts
-func getActiveAccounts() []Account {
-    // some implementation
-}
-
 ```
 
 ---
@@ -410,7 +393,7 @@ Small functions should have preferably at most 5 lines. The less the better.
 ```golang
 func SomeWeirdOperation() {
     if 1 < 10 {
-        fmt.Println("1 is lowen than 10")
+        fmt.Println("1 is lower than 10")
     }
 
     for i := 0; i < 5; i++ {
