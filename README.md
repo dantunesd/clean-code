@@ -23,6 +23,7 @@ A brief description of what this project does and who it's for
     - [Identation blocks](#identation-blocks)
     - [One abstraction level per function](#one-abstraction-level-per-function)
     - [Decrescent reading](#decrescent-reading)
+    - [Function parameters](#function-parameters)
 
 
 ## Naming
@@ -143,29 +144,26 @@ to be implemented
 
 ### Avoid mental mapping
 
+Prefer always using conventions and ubiquitous language(DDD). It will facilitate everybody who is reading your code, avoiding them having to translate your code to what it was supposed to be while reading. 
+
 #### Bad
 
 ```golang
-// It's not common to use letters other than "i", "j", "k" in a for statement
 for ç := 0; ç < count; ç++ {
     fmt.Println(ç)
 }
 
-// Maybe it's not common word to represents its meaning when talking to your teammates, stakeholders, etc.
 var motorizedMachine Vehicle
 var vehicleThatTakesPeople Vehicle
-
 ```
 
 #### Good
 
 ```golang
-// Prefer conventions everywhere
 for i := 0; i < count; i++ {
     fmt.Println(i)
 }
 
-// Use ubiquitous language everywhere.
 var car Vehicle
 var taxi Vehicle
 ```
@@ -288,17 +286,17 @@ func (a *Animal) GetName() string {
 
 ### Use domain solution and problem names
 
+There's no problem in using "domain solution" names. Other programmers probably know what it means and it may facilitate to them (Ex: Design Patterns)
+
+You can just use "domain problem" names if there aren't any "domain solution" name. At least some domain specialist may know more about it and you can ask him.
 
 #### Good
 
 ```golang
-// There's no problem in using "domain solution" names. Other programmers probably know what it means and it may facilitate to them (Ex: Design Patterns)
+// 
 type BusStrategy struct{}
 type CarFactory struct{}
 type ActiveAccountState struct{}
-
-// You can just use "domain problem" names if there aren't any "domain solution" name. At least some domain specialist may know more about it and you can ask him.
-type Account struct{}
 ```
 
 ---
@@ -674,5 +672,37 @@ func ICallTheLastOne() {
 
 ---
 
+### Function parameters
+
+Function can receive as many parameters as you like. 
+
+The problem with this is that your function will become harder to understand, probably because it does a lot of things with these parameters. It's difficult to test all the combinations, and so on.
+
+So, the less parameters your functions receive the better. 0 is the best. 1 (monadic) is good, 2 (dyadic) is ok, 3 or more... well, better no.
+
+#### Bad
+
+```golang
+func CreateCustomer(name, email, phone, birthdate string) {
+    // creating customer
+}
+```
+
+#### Good
+
+```golang
+type Customer struct {
+    name      string
+    email     string
+    phone     string
+    birthdate string
+}
+
+func CreateCustomer(customer *Customer) {
+    // creating customer
+}
+```
+
+---
 
 
