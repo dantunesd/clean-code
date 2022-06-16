@@ -675,9 +675,9 @@ func ICallTheLastOne() {
 
 ### Function parameters
 
-Function can receive as many parameters as you like. 
+Functions can receive as many parameters as you like. 
 
-The problem with this is that your function will become harder to understand, probably because it does a lot of things with these parameters. It's difficult to test all the combinations, and so on.
+The problem with this is that your function will become harder to understand, probably because it does a lot of things with these parameters. It's difficult to test all the combinations, you may change the order of them while calling it, and so on.
 
 So, the less parameters your functions receive the better. 0 is the best. 1 (monadic) is good, 2 (dyadic) is ok, 3 or more... well, better no.
 
@@ -716,10 +716,7 @@ Functions (mainly monadics) should form a well pair of "verb" and "noun".
 
 ```golang
 type Customer struct {
-    name      string
-    email     string
-    phone     string
-    birthdate string
+    // fields
 }
 
 func Create(customer *Customer) {
