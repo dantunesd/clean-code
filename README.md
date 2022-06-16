@@ -22,6 +22,7 @@ A brief description of what this project does and who it's for
     - [Small](#small)
     - [Identation blocks](#identation-blocks)
     - [One abstraction level per function](#one-abstraction-level-per-function)
+    - [Decrescent reading](#decrescent-reading)
 
 
 ## Naming
@@ -44,13 +45,13 @@ func Sq(s []int) int {
 #### Good
 
 ```golang
-// A function which receives some numbers and does a square sum operation
-func SumSquare(numbers []int) int {
-    var totalSum int
+// A function which receives some numbers, does squared operations and sum the results
+func SumNumbersSquared(numbers []int) int {
+    var result int
     for _, number := range numbers {
-        totalSum += number * number
+        result += number * number
     }
-    return totalSum
+    return result
 }
 ```
 
@@ -82,10 +83,7 @@ var currentTime = time.Now()
 // What's the difference between them?
 var time1 = time.Now()
 var time2 = time.Now().AddDate(0, 0, 1)
-var timeObject = time.Now(AddDate(1, 0, 0)
-var timeInfo = time.Now()
-var timeVar = time.Now()
-
+var timeObject = time.Now(AddDate(1, 0, 0))
 ```
 
 #### Good
@@ -94,7 +92,7 @@ var timeVar = time.Now()
 // It's clear now
 var now = time.Now()
 var tomorrow = time.Now().AddDate(0, 0, 1)
-var nextYear = time.Now(AddDate(1, 0, 0)
+var nextYear = time.Now(AddDate(1, 0, 0))
 ```
 
 ---
@@ -169,7 +167,6 @@ for i := 0; i < count; i++ {
 
 // Use ubiquitous language everywhere.
 var car Vehicle
-var bus Vehicle
 var taxi Vehicle
 ```
 
@@ -252,39 +249,28 @@ func (e *Employee) IsBrazilian() bool {
 #### Bad
 
 ```golang
-type Car struct {
-    Name string
-}
-
 // This function returns the object name
 func (c *Car) GetName() string {
     return c.Name
-}
-
-type Customer struct {
-    Name string
 }
 
 // This function also returns the object name. But, why naming it different?
 func (c *Customer) RetrieveName() string {
     return c.Name
 }
+
+// Same here
+func (a *Animal) FetchName() string {
+    return a.Name
+}
 ```
 
 #### Good
 
 ```golang
-type Car struct {
-    Name string
-}
-
 // This function returns the object name
 func (c *Car) GetName() string {
     return c.Name
-}
-
-type Customer struct {
-    Name string
 }
 
 // Using the same name for the same concept
@@ -292,7 +278,10 @@ func (c *Customer) GetName() string {
     return c.Name
 }
 
-
+// Same here
+func (a *Animal) GetName() string {
+    return a.Name
+}
 ```
 
 ---
@@ -303,7 +292,7 @@ func (c *Customer) GetName() string {
 #### Good
 
 ```golang
-// There's no problem in using "domain solution" names. Others programmers probably know what it means and it may facilitate to them (Ex: Design Patterns)
+// There's no problem in using "domain solution" names. Other programmers probably know what it means and it may facilitate to them (Ex: Design Patterns)
 type BusStrategy struct{}
 type CarFactory struct{}
 type ActiveAccountState struct{}
@@ -320,16 +309,17 @@ type Account struct{}
 
 ```golang
 
-// it could represent whatever number.
+// It could represent whatever number.
 var number int
 
-// it could represent a state name? like "active" or "inactive".
+// It could represent a state name? like "active" or "inactive".
 var state string
 
-// now i'm getting the context... an address
+// Now i'm getting the context...
 var street string
 
-// Only after reading these 3 variables you may notice that them is part of a bigger context: Address. Now imagine if they were all spread out in some code.
+// Only after reading these 3 variables you may have noticed that them is part of a bigger context: Address.
+// Now imagine if they were all spread out in some code.
 ```
 
 #### Good
@@ -384,7 +374,7 @@ type Address struct {
 
 ### Small
 
-Great functions are difficult to understand because they do a lot diffrent things, have lots of statements chained, have different levels of abstraction, have a confused reading flow, and so on...
+Great functions are difficult to understand because they do a lot different things, have lots of statements chained, have different levels of abstraction, have a confused reading flow, and so on...
 
 Small functions should have preferably at most 5 lines. The less the better.
 
@@ -446,7 +436,7 @@ func printCurrentTime() {
 
 ### Identation blocks
 
-To have good functions, in addition of being small, they must have few identations level. At most 2 levels.
+To have good functions, in addition of being small, they must have few identation levels. At most 2 levels.
 
 The less "if" inside another "if", "for" inside another "for", the simpler your code will looks like
 
@@ -535,7 +525,7 @@ func PrintTwoMoreLoopsMessage() {
 
 ### One abstraction level per function
 
- Good functions must do only one thing. But, how to know if it's doing really only one thing? It must have only one abstraction level.
+ Good functions do only one thing. But, how to know if it's really doing only one thing? It must have only one abstraction level.
  Low and high details together it's a good sign that it's doing more than one thing.
 
 #### Bad
@@ -560,14 +550,12 @@ func CreateCustomer(name, email string) error {
 func saveCustomerOnDatabase(name, email string) error {
     return nil
 }
-
-
 ```
 
 #### Good
 
 ```golang
-// Now this function delegates all the lowest level details to others functions. They are now abstracted.
+// Now this function delegates all the lowest level details to other functions. They are now abstracted.
 func CreateCustomer(name, email string) error {
     if err := validateCustomer(name, email); err != nil {
         return err
@@ -591,7 +579,7 @@ func validateCustomer(name, email string) error {
     return nil
 }
 
-// This function contains de lowest level detail
+// This function contains the lowest detail level
 func isValidEmail(email string) bool {
     return email == "just.an.example@gmail.com"
 }
