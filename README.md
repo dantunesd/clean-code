@@ -364,13 +364,15 @@ var street string
 #### Good
 
 ```golang
-//Group them together into a Class or Struct when it's possible.
+// Group them together into a Class or Struct when it's possible.
 type Address struct {
     Street string
     Number int
     State  string
 }
+```
 
+```golang
 // If there is no other way, add prefixes.
 var addressNumber int
 var addressState string
@@ -391,9 +393,9 @@ If your variables or classes are well contextualized, Don't give them unnecessar
 package whatever
 
 type AddressFromWhateverPackage struct {
-    Street string
+    Street        string
     AddressNumber int
-    AdressState  string
+    AdressState   string
 }
 ```
 
