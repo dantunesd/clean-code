@@ -29,6 +29,7 @@ A brief description of what this project does and who it's for
     - [Output parameters](#output-parameters)
     - [Command-Query separation](#command-query-separation)
     - [Prefer exceptions instead of returning error codes](#prefer-exceptions-instead-of-returning-error-codes)
+    - [Avoid repetition](#avoid-repetition)
 
 
 ## Naming
@@ -961,5 +962,11 @@ func Validate(customer *Customer) error {
     return errors.New("failed to validate customer")
 }
 ```
+
+---
+
+### Avoid repetition
+
+Follows [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
 
 ---
