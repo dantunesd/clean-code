@@ -27,6 +27,7 @@ A brief description of what this project does and who it's for
     - [Verbs and key-words](#verbs-and-key-words)
     - [Avoid collateral effect](#avoid-collateral-effect)
     - [Output parameters](#output-parameters)
+    - [Command-Query separation](#command-query-separation)
 
 
 ## Naming
@@ -811,6 +812,54 @@ func (r *Report) AppendFooter() {
     r.Footer = "footer example"
 
     // Now this function is changing the state of its own "object".
+}
+```
+
+---
+
+### Command-Query separation
+
+Functions should do or answer something, not both. Doing both things could generate confusion. Avoid it.
+
+Try to implement command-query separation principle
+
+#### Bad
+
+```golang
+package main
+
+type Car struct {
+    Name string
+}
+
+func (c *Car) GetName() string {
+    if c.Name != "" {
+        c.Name = "Default name"
+
+        // doing more things here related to this object
+        // ...
+        // ...
+    }
+
+    return c.Name
+}
+```
+
+#### Good
+
+```golang
+package main
+
+type Car struct {
+    Name string
+}
+
+func (c *Car) GetName() string {
+    return c.Name
+}
+
+func (c *Car) SetName(name string) {
+    c.Name = name
 }
 ```
 
