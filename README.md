@@ -889,6 +889,7 @@ type Customer struct {
     // fields
 }
 
+// This function needs to know about error codes to continue its logic.
 func Create(customer *Customer) {
     if Validate(customer) == E_OK {
         if Save(customer) == E_OK {
@@ -901,11 +902,13 @@ func Create(customer *Customer) {
     }
 }
 
+// Returning error codes.
 func Save(customer *Customer) string {
     // saving on database
     return E_OK
 }
 
+// Returning error codes.
 func Validate(customer *Customer) string {
     // validating
     return E_OK
@@ -924,12 +927,14 @@ type Customer struct {
     // fields
 }
 
+// A "main" function aplying something like a "try-catch" block.
 func CreateAndLog(customer *Customer) {
     if err := Create(customer); err != nil {
         log.Println(err.Error())
     }
 }
 
+// Now this function doesn't need to bother with codes neither logging, it just passes on the errors.
 func Create(customer *Customer) error {
     if err := Validate(customer); err != nil {
         return err
@@ -942,16 +947,17 @@ func Create(customer *Customer) error {
     return nil
 }
 
+// Returning errors instead of error codes.
 func Save(customer *Customer) error {
     // saving on database
     return errors.New("failed to save customer")
 }
 
+// Returning errors instead of error codes.
 func Validate(customer *Customer) error {
     // validating
     return errors.New("failed to validate customer")
 }
-
 ```
 
 ---
