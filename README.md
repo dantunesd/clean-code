@@ -234,7 +234,9 @@ Methods are actions, actions are verbs. Methods should contain a verb on its nam
 Preffer following some conventions like:  
 
 Get: to get a field
+
 Set: to set a value on a field
+
 Is: to answer if something is something else
 
 However, there's a golang convention which says you don't need to prefix "get" when getting something. So this topic is controversial :X
