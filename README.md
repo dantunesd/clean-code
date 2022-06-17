@@ -967,6 +967,6 @@ func Validate(customer *Customer) error {
 
 ### Avoid repetition
 
-Follows [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
+Follow [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
 
 ---
