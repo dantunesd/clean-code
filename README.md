@@ -125,7 +125,7 @@ Name things with pronounceable words.
 #### Bad
 
 ```golang
-// It's not a word, it's difficult to pronounce
+// It's not a word, it's hard to pronounce
 var crtTm = time.Now()
 ```
 
@@ -417,7 +417,7 @@ type Address struct {
 
 ### Small
 
-Great functions are difficult to understand because they do a lot different things, have lots of statements chained, have different levels of abstraction, have a confused reading flow, and so on...
+Great functions are hard to understand because they do a lot different things, have lots of statements chained, have different levels of abstraction, have a confused reading flow, and so on...
 
 Small functions should have preferably at most 5 lines. The less the better.
 
@@ -721,7 +721,7 @@ func ICallTheLastOne() {
 
 Functions can receive as many parameters as you like. 
 
-The problem with this is that your function will become harder to understand, probably because it does a lot of things with these parameters. It's difficult to test all the combinations, you may change the order of them while calling it, and so on.
+The problem with this is that your function will become harder to understand, probably because it does a lot of things with these parameters. It's hard to test all the combinations, you may change the order of them while calling it, and so on.
 
 So, the less parameters your functions receive the better. 0 is the best. 1 (monadic) is good, 2 (dyadic) is ok, 3 or more... well, better no.
 
@@ -945,14 +945,14 @@ func Create(customer *Customer) {
 }
 
 // Returning error codes.
-func Save(customer *Customer) string {
-    // saving on database
+func Validate(customer *Customer) string {
+    // validating
     return E_OK
 }
 
 // Returning error codes.
-func Validate(customer *Customer) string {
-    // validating
+func Save(customer *Customer) string {
+    // saving on database
     return E_OK
 }
 ```
@@ -969,7 +969,7 @@ type Customer struct {
     // fields
 }
 
-// A "main" function aplying something like a "try-catch" block.
+// A "main" function applying something like a "try-catch" block.
 func CreateAndLogError(customer *Customer) {
     if err := Create(customer); err != nil {
         log.Println(err.Error())
@@ -990,15 +990,15 @@ func Create(customer *Customer) error {
 }
 
 // Returning errors instead of error codes.
-func Save(customer *Customer) error {
-    // saving on database
-    return errors.New("failed to save customer")
-}
-
-// Returning errors instead of error codes.
 func Validate(customer *Customer) error {
     // validating
     return errors.New("failed to validate customer")
+}
+
+// Returning errors instead of error codes.
+func Save(customer *Customer) error {
+    // saving on database
+    return errors.New("failed to save customer")
 }
 ```
 
