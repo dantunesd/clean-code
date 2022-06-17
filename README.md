@@ -872,9 +872,9 @@ Well, golang doesn't have exceptions. But you still don't need to return error c
 
 Returning error codes leds to creating many indentation blocks and giving the caller responsibility to validate these codes.
 
-In this case, prefer returning golang "errors" and handle them in only one place.
+Prefer returning golang "errors" and handle them.
 
-Also, error handling (like try/catch blocks) is "one thing". Don't mix them with business logic. So, create a separate function for it.
+Also, error handling (like try/catch blocks) is "one thing". Avoid mixing them with business logic. So, create a separate function for it.
 
 #### Bad
 
@@ -930,7 +930,7 @@ type Customer struct {
 }
 
 // A "main" function aplying something like a "try-catch" block.
-func CreateCustomer(customer *Customer) {
+func CreateAndLogError(customer *Customer) {
     if err := Create(customer); err != nil {
         log.Println(err.Error())
     }
