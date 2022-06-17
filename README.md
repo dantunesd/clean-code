@@ -25,6 +25,7 @@ A brief description of what this project does and who it's for
     - [Decrescent reading](#decrescent-reading)
     - [Function parameters](#function-parameters)
     - [Verbs and key-words](#verbs-and-key-words)
+    - [Avoid collateral effect](#avoid-collateral-effect)
 
 
 ## Naming
@@ -721,6 +722,51 @@ type Customer struct {
 
 func Create(customer *Customer) {
     // Creating customer
+}
+```
+
+---
+
+### Avoid collateral effect
+
+If your function promises to do something (this promise is on its name), so it must do only it. 
+
+Programmers believe on functions names. Don't let their names fool them (us).
+
+#### Bad
+
+```golang
+// This function only calculates... and sends an emaaaail?
+func Calculate(firstNumber, secondNumber int) int {
+    result := firstNumber + secondNumber
+    SendResultOnEmail(result)
+    return result
+}
+
+// Sends an email
+func SendResultOnEmail(result int) {
+    // Getting the result and sending an email
+}
+```
+
+#### Good
+
+```golang
+// Now this function only calculates
+func Calculate(firstNumber, secondNumber int) int {
+    return firstNumber + secondNumber
+}
+
+// Still sending an email
+func SendResultOnEmail(result int) {
+    // Getting the result and sending an email
+}
+
+// At least we have now a different function which does those two operations with a explicit name.
+func CalculateAndSendResultOnEmail(firstNumber, secondNumber int) int {
+    result := Calculate(firstNumber, secondNumber)
+    SendResultOnEmail(result)
+    return result
 }
 ```
 
