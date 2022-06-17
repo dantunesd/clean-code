@@ -26,6 +26,7 @@ A brief description of what this project does and who it's for
     - [Function parameters](#function-parameters)
     - [Verbs and key-words](#verbs-and-key-words)
     - [Avoid collateral effect](#avoid-collateral-effect)
+    - [Output parameters](#output-parameters)
 
 
 ## Naming
@@ -767,6 +768,49 @@ func CalculateAndSendResultOnEmail(firstNumber, secondNumber int) int {
     result := Calculate(firstNumber, secondNumber)
     SendResultOnEmail(result)
     return result
+}
+```
+
+---
+
+### Output parameters
+Parameters are generally known as "input" to functions. But there are also some parameters known as "output parameters". Ex:
+
+
+```golang
+AppendFooter(r)
+```
+
+Is AppendFooter appending "r" as footer to another object or it's appending a footer on "r"?
+
+Generally, avoid using parameters as "output parameters" (AppendFooter appends footer on "r"). If any function needs to change the state of any object, delegate this responsibility to its own object/struct.
+
+#### Bad
+
+```golang
+type Report struct {
+	Footer string
+}
+
+func AppendFooter(report *Report) {
+	report.Footer = "footer example"
+
+    // This function is not appending the report on another object
+	// It's appending a footer on report. It's changing the Report state
+}
+```
+
+#### Good
+
+```golang
+type Report struct {
+	Footer string
+}
+
+func (r *Report) AppendFooter() {
+	r.Footer = "footer example"
+
+	// Now this function is changing the state of its own "object".
 }
 ```
 
