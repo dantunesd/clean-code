@@ -789,14 +789,14 @@ Generally, avoid using parameters as "output parameters" (AppendFooter appends f
 
 ```golang
 type Report struct {
-	Footer string
+    Footer string
 }
 
 func AppendFooter(report *Report) {
-	report.Footer = "footer example"
+    report.Footer = "footer example"
 
     // This function is not appending the report on another object
-	// It's appending a footer on report. It's changing the Report state
+    // It's appending a footer on report. It's changing the Report state
 }
 ```
 
@@ -804,13 +804,13 @@ func AppendFooter(report *Report) {
 
 ```golang
 type Report struct {
-	Footer string
+    Footer string
 }
 
 func (r *Report) AppendFooter() {
-	r.Footer = "footer example"
+    r.Footer = "footer example"
 
-	// Now this function is changing the state of its own "object".
+    // Now this function is changing the state of its own "object".
 }
 ```
 
