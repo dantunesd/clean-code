@@ -874,6 +874,8 @@ Returning error codes leds to creating many indentation blocks and giving the ca
 
 In this case, prefer returning golang "errors" and handle them in only one place.
 
+Also, error handling (like try/catch blocks) is "one thing". Don't mix them with business logic. So, create a separate function for it.
+
 #### Bad
 
 ```golang
@@ -928,7 +930,7 @@ type Customer struct {
 }
 
 // A "main" function aplying something like a "try-catch" block.
-func CreateAndLog(customer *Customer) {
+func CreateCustomer(customer *Customer) {
     if err := Create(customer); err != nil {
         log.Println(err.Error())
     }
