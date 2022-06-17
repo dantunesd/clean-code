@@ -886,29 +886,29 @@ const E_OK = "OK"
 
 // A simple struct
 type Customer struct {
-	// fields
+    // fields
 }
 
 func Create(customer *Customer) {
-	if Validate(customer) == E_OK {
-		if Save(customer) == E_OK {
-			return
-		} else {
-			log.Println("failed to save customer")
-		}
-	} else {
-		log.Println("failed to validate customer")
-	}
+    if Validate(customer) == E_OK {
+        if Save(customer) == E_OK {
+            return
+        } else {
+            log.Println("failed to save customer")
+        }
+    } else {
+        log.Println("failed to validate customer")
+    }
 }
 
 func Save(customer *Customer) string {
-	// saving on database
-	return E_OK
+    // saving on database
+    return E_OK
 }
 
 func Validate(customer *Customer) string {
-	// validating
-	return E_OK
+    // validating
+    return E_OK
 }
 ```
 
@@ -921,35 +921,35 @@ import "log"
 
 // A simple struct
 type Customer struct {
-	// fields
+    // fields
 }
 
 func CreateAndLog(customer *Customer) {
-	if err := Create(customer); err != nil {
-		log.Println(err.Error())
-	}
+    if err := Create(customer); err != nil {
+        log.Println(err.Error())
+    }
 }
 
 func Create(customer *Customer) error {
-	if err := Validate(customer); err != nil {
-		return err
-	}
+    if err := Validate(customer); err != nil {
+        return err
+    }
 
-	if err := Save(customer); err != nil {
-		return err
-	}
+    if err := Save(customer); err != nil {
+        return err
+    }
 
-	return nil
+    return nil
 }
 
 func Save(customer *Customer) error {
-	// saving on database
-	return errors.New("failed to save customer")
+    // saving on database
+    return errors.New("failed to save customer")
 }
 
 func Validate(customer *Customer) error {
-	// validating
-	return errors.New("failed to validate customer")
+    // validating
+    return errors.New("failed to validate customer")
 }
 
 ```
