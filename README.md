@@ -20,7 +20,7 @@ A brief description of what this project does and who it's for
     - [Avoid unnecessary contex](#avoid-unnecessary-context)
 - [Functions](#functions)
     - [Small](#small)
-    - [Identation blocks](#identation-blocks)
+    - [Indentation blocks](#indentation-blocks)
     - [One abstraction level per function](#one-abstraction-level-per-function)
     - [Decrescent reading](#decrescent-reading)
     - [Function parameters](#function-parameters)
@@ -28,6 +28,7 @@ A brief description of what this project does and who it's for
     - [Avoid collateral effect](#avoid-collateral-effect)
     - [Output parameters](#output-parameters)
     - [Command-Query separation](#command-query-separation)
+    - [Prefer exceptions instead of returning error codes](#prefer-exceptions-instead-of-returning-error-codes)
 
 
 ## Naming
@@ -436,9 +437,9 @@ func printCurrentTime() {
 
 ---
 
-### Identation blocks
+### Indentation blocks
 
-To have good functions, in addition of being small, they must have few identation levels. At most 2 levels.
+To have good functions, in addition of being small, they must have few indentation levels. At most 2 levels.
 
 The less "if" inside another "if", "for" inside another "for", the simpler your code will looks like
 
@@ -861,6 +862,96 @@ func (c *Car) GetName() string {
 func (c *Car) SetName(name string) {
     c.Name = name
 }
+```
+
+---
+
+### Prefer exceptions instead of returning error codes
+
+Well, golang doesn't have exceptions. But you still don't need to return error codes.
+
+Returning error codes leds to creating many indentation blocks and giving the caller responsibility to validate these codes.
+
+In this case, prefer returning golang "errors" and handle them in only one place.
+
+#### Bad
+
+```golang
+package main
+
+import "log"
+
+// A simple example of an error code
+const E_OK = "OK"
+
+// A simple struct
+type Customer struct {
+	// fields
+}
+
+func Create(customer *Customer) {
+	if Validate(customer) == E_OK {
+		if Save(customer) == E_OK {
+			return
+		} else {
+			log.Println("failed to save customer")
+		}
+	} else {
+		log.Println("failed to validate customer")
+	}
+}
+
+func Save(customer *Customer) string {
+	// saving on database
+	return E_OK
+}
+
+func Validate(customer *Customer) string {
+	// validating
+	return E_OK
+}
+```
+
+#### Good
+
+```golang
+package main
+
+import "log"
+
+// A simple struct
+type Customer struct {
+	// fields
+}
+
+func CreateAndLog(customer *Customer) {
+	if err := Create(customer); err != nil {
+		log.Println(err.Error())
+	}
+}
+
+func Create(customer *Customer) error {
+	if err := Validate(customer); err != nil {
+		return err
+	}
+
+	if err := Save(customer); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func Save(customer *Customer) error {
+	// saving on database
+	return errors.New("failed to save customer")
+}
+
+func Validate(customer *Customer) error {
+	// validating
+	return errors.New("failed to validate customer")
+}
+
 ```
 
 ---
