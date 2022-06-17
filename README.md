@@ -1,9 +1,9 @@
 
 # Clean Code
 
-A brief description of what this project does and who it's for
+A summary of clean code best practices based on its own book.
 
-## Summary
+## Content
 
 - [Naming](#naming)
     - [Meaningful names](#meaningful-names)
@@ -36,6 +36,12 @@ A brief description of what this project does and who it's for
 
 ### Meaningful names
 
+Use names that reveals its purpose. 
+
+Choosing a good name may take some time. But you will economize later.
+
+All those who reads you code will be grateful. 
+
 #### Bad
 
 ```golang
@@ -66,6 +72,8 @@ func SumNumbersSquared(numbers []int) int {
 
 ### Avoid wrong information
 
+Avoid naming things which may trick other programmers.
+
 #### Bad
 
 ```golang
@@ -83,6 +91,10 @@ var currentTime = time.Now()
 ---
 
 ### Meaningful distinction
+
+Avoid coding only for the compiler or interpreter. Code for other programmers.
+
+Let your code be explicit, name everything with meaningful distinctions.
 
 #### Bad
 
@@ -106,6 +118,10 @@ var nextYear = time.Now(AddDate(1, 0, 0))
 
 ### Pronounceable names
 
+We people are good with words, with our language. Not using it is a waste.
+
+Name things with pronounceable words.
+
 #### Bad
 
 ```golang
@@ -124,6 +140,10 @@ var currentTime = time.Now()
 
 ### Searchable names
 
+Names with one letter or number is hard to find throughout a code.
+
+If a variable is used in many places, prefer to name it well and seachable.
+
 #### Bad
 
 ```golang
@@ -134,23 +154,17 @@ var a = 22
 #### Good
 
 ```golang
-// It will be easier to find all ocurrencies
+// Easier to find all ocurrencies
 var averageMonthlyWorkingDays = 22
-```
-
----
-
-### Interface implementations
-
-```
-to be implemented
 ```
 
 ---
 
 ### Avoid mental mapping
 
-Prefer always using conventions and ubiquitous language(DDD). It will facilitate everybody who is reading your code, avoiding them having to translate your code to what it was supposed to be while reading. 
+Prefer always to use conventions and ubiquitous language(DDD).
+
+It will facilitate everybody who is reading your code, avoiding them to have to translate your code to what it was supposed to be. 
 
 #### Bad
 
@@ -158,7 +172,10 @@ Prefer always using conventions and ubiquitous language(DDD). It will facilitate
 for ç := 0; ç < count; ç++ {
     fmt.Println(ç)
 }
+```
 
+
+```golang
 var motorizedMachine Vehicle
 var vehicleThatTakesPeople Vehicle
 ```
@@ -169,7 +186,9 @@ var vehicleThatTakesPeople Vehicle
 for i := 0; i < count; i++ {
     fmt.Println(i)
 }
+```
 
+```golang
 var car Vehicle
 var taxi Vehicle
 ```
@@ -178,10 +197,13 @@ var taxi Vehicle
 
 ### Class names
 
+Classes should be nouns.
+
+Avoid generic names such as Data, Info, Manager, Process, and so on.
+
 #### Bad
 
 ```golang
-// Avoid generic names such as Data, Info, Manager, Process, and so on.
 type CarInfo struct {
     Name string
 }
@@ -194,7 +216,6 @@ type CustomerData struct {
 #### Good
 
 ```golang
-// Prefer using just nouns for naming 
 type Car struct {
     Name string
 }
@@ -208,6 +229,16 @@ type Customer struct {
 
 ### Method names
 
+Methods are actions, actions are verbs. Methods should contain a verb on its name.
+
+Preffer following some conventions like:  
+
+Get: to get a field
+Set: to set a value on a field
+Is: to answer if something is something else
+
+However, there's a golang convention which says you don't need to prefix "get" when getting something. So this topic is controversial :X
+
 #### Bad
 
 ```golang
@@ -216,12 +247,12 @@ type Employee struct {
     nationality string
 }
 
-// Imagine reading this method being called... Employee, "Name".
+// What method "Name" is doing? Where is the verb?
 func (e *Employee) Name() string {
     return e.name
 }
 
-// What "Brazilian" method should do?
+// What a "Brazilian" method should do?
 func (e *Employee) Brazilian() bool {
     return e.nationality == "BRASIL"
 }
@@ -235,7 +266,7 @@ type Employee struct {
     nationality string
 }
 
-// Methods are actions, actions are verbs. Methods should contain a verb on its name.
+// Get the Name
 func (e *Employee) GetName() string {
     return e.name
 }
@@ -250,20 +281,21 @@ func (e *Employee) IsBrazilian() bool {
 
 ### One word per context
 
+Use the same word for the same abstract context. Naming them different may confuses other programmers. 
+
+Like, what's the difference between "fetching" or "getting" something? Or "creating" or "saving"?
+
 #### Bad
 
 ```golang
-// This function returns the object name
 func (c *Car) GetName() string {
     return c.Name
 }
 
-// This function also returns the object name. But, why naming it different?
 func (c *Customer) RetrieveName() string {
     return c.Name
 }
 
-// Same here
 func (a *Animal) FetchName() string {
     return a.Name
 }
@@ -272,17 +304,14 @@ func (a *Animal) FetchName() string {
 #### Good
 
 ```golang
-// This function returns the object name
 func (c *Car) GetName() string {
     return c.Name
 }
 
-// Using the same name for the same concept
 func (c *Customer) GetName() string {
     return c.Name
 }
 
-// Same here
 func (a *Animal) GetName() string {
     return a.Name
 }
@@ -299,62 +328,69 @@ You can just use "domain problem" names if there aren't any "domain solution" na
 #### Good
 
 ```golang
-// 
-type BusStrategy struct{}
-type CarFactory struct{}
-type ActiveAccountState struct{}
+type BusStrategy struct{
+    // ...
+}
+
+type CarFactory struct{
+        // ...
+}
+
+type ActiveAccountState struct{
+        // ...
+}
 ```
 
 ---
 
 ### Meaningful context
 
+Only after reading these 3 variables below you notice they belong to a bigger context: Address.
+
+Now imagine if they were all spread out in some code. Would you still make it?
+
+There are few words which are meaningful for its own. This is why we put such variables into classes, structs, etc
+
 #### Bad
 
 ```golang
-
-// It could represent whatever number.
 var number int
-
-// It could represent a state name? like "active" or "inactive".
 var state string
-
-// Now i'm getting the context...
 var street string
-
-// Only after reading these 3 variables you may have noticed that them is part of a bigger context: Address.
-// Now imagine if they were all spread out in some code.
 ```
 
 #### Good
 
 ```golang
-// Adding prefixes could help to give them a context
-var addressNumber int
-var addressState string
-var adressStreet string
-
-// Or even better... Group them together into a Class or Struct when it's possible.
+//Group them together into a Class or Struct when it's possible.
 type Address struct {
     Street string
     Number int
     State  string
 }
+
+// If there is no other way, add prefixes.
+var addressNumber int
+var addressState string
+var adressStreet string
 ```
 
 ---
 
 ### Avoid unnecessary context
 
+Well, this is the opposite from the topic above.
+
+If your variables or classes are well contextualized, Don't give them unnecessary context.
+
 #### Bad
 
 ```golang
 package whatever
 
-// Adding unecessary context
-type whateverPkgAddress struct {
-    AddressStreet string
-    whateverNumber int
+type AddressFromWhateverPackage struct {
+    Street string
+    AddressNumber int
     AdressState  string
 }
 ```
@@ -364,7 +400,6 @@ type whateverPkgAddress struct {
 ```golang
 package whatever
 
-// Simple, contextualized.
 type Address struct {
     Street string
     Number int
@@ -873,7 +908,7 @@ Well, golang doesn't have exceptions. But you still don't need to return error c
 
 Returning error codes leds to creating many indentation blocks and giving the caller responsibility to validate these codes.
 
-Prefer returning golang "errors" and handle them.
+Prefer to return golang "errors" and handle them.
 
 Also, error handling (like try/catch blocks) is "one thing". Avoid mixing them with business logic. So, create a separate function for it.
 
