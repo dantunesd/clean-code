@@ -30,6 +30,10 @@ A summary of clean code best practices based on its own book.
     - [Command-Query separation](#command-query-separation)
     - [Prefer exceptions instead of returning error codes](#prefer-exceptions-instead-of-returning-error-codes)
     - [Avoid repetition](#avoid-repetition)
+- [Comments](#comments)
+    - [Avoid comments](#avoid-comments)
+    - [Avoid redundant comments](#avoid-redundant-comments)
+    - [Avoid imperative comments](#avoid-imperative-comments)
 
 
 ## Naming
@@ -1007,5 +1011,127 @@ func Save(customer *Customer) error {
 ### Avoid repetition
 
 Follow [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
+
+---
+
+## Comments
+
+_Do not insert comments in a bad code, rewrite it._
+
+### Avoid comments
+
+Your code change, evolves, it's moved from a place to another, it's renamed, deleted, improved, and so on.
+
+But comments rarely evolves at the same rate. 
+
+Comments lie, get outdated, pollute and obfuscate your code. They tell things that aren't true anymore.
+
+The only thing that can tell you exactly what your code does... it is the code itself!
+
+Don't waste energy explaning a bad code with a comment. Clean it.
+
+
+#### Bad
+
+```golang
+// Verifies if employee has the rights to all benefits
+if employee.age > 65 && employee.contract == HOURLY_CONTRACT {
+    ...
+}
+```
+
+#### Good
+
+```golang
+if employee.isEligibleForFullBenefits() {
+    ...
+}
+```
+
+---
+
+### Avoid redundant comments
+
+Avoid commenting a code that already explains itself. Reading the comment will be just a waste of time.
+
+#### Bad
+
+```golang
+// If one is higher than two, prints "hey", if not, prints "ho"
+if 1 > 2 {
+    fmt.Println("hey")
+} else {
+    fmt.Println("ho")
+}
+```
+
+#### Good
+
+```golang
+if 1 > 2 {
+    fmt.Println("hey")
+} else {
+    fmt.Println("ho")
+}
+```
+
+#### Better
+
+if you have a complex code (this is not the case), extract it to smaller functions and give then a self explained name.
+
+```golang
+func printsHeyOrHo() {
+    if oneIsHigherThanTwo() {
+        printsHey()
+    } else {
+        printsHo()
+    }
+}
+```
+
+#### Some other bad ones
+
+```golang
+// Day of month
+var dayOfMonth int
+```
+Really?
+
+```golang
+/**
+ * @return Returns the day of the month
+ */ 
+func getDayOfTheMounth() int {
+    return dayOfMonth
+}
+```
+
+Hmm, got it.
+
+---
+
+### Avoid imperative comments
+
+It's basicaly the same as redundant comments. Adding code blocks to explain something that is self explained is unecessary.
+
+### Bad
+
+```golang
+/**
+ * @param title The title of the CD
+ * @param author The author of the CD
+ */
+func addCD(title, author string) {
+    ...
+}
+```
+
+### Good
+
+```golang
+func addCD(title, author string) {
+    ...
+}
+```
 
 ---
